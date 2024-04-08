@@ -22,7 +22,9 @@ Despite its simplicity, Brainfuck can be used to write complex programs.
 To compile a Brainfuck program, you first need to compile the Go program included in this repository. Follow these steps:
 
 1. Clone this repository to your local machine:
-
+```
+https://github.com/erni12345/go-bf-compiler.git
+```
 
 2. Navigate to the project directory:
 ```
