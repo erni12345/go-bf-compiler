@@ -40,10 +40,18 @@ This will generate an executable file named `brainfuck-compiler` or `brainfuck-c
 
 4. Now, you can use the generated executable to compile Brainfuck programs. Run the following command:
 ```
-./bf-compiler <name-of-file.bf> <mode>
+./bf-compiler <mode> <name-of-file> <output>
 ```
-Current modes : `interpret`
-Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mode with the mode. **Soon** this will compile the Brainfuck program into executable code. For now just runs.
+Current modes : `interpret`, `compile-to-go`
+
+Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mode with the mode.
+
+#They all will compile (if applicable) and run the code, and print some analytics.
+
+'interpret' Does not take an output
+
+'compile-to-go' Takes in the name of the ouput file example : `output.go` it will create the file and it can be run using go run output.go
+
 
 That's it! You've successfully compiled a Brainfuck program using this compiler.
 

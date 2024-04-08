@@ -8,21 +8,46 @@ import(
 )
 
 func main() {
-    // Checking if we have a file name
-    if len(os.Args) < 3 {
-        fmt.Println("Usage : bf-compiler <filename> <mode>")
+    if len(os.Args) < 4 {
+        fmt.Println("Usage: go run compiler.go <mode> <input_file> <output_file>")
         return
     }
 
-    filePath := os.Args[1]
-    mode := os.Args[2]
+    mode := os.Args[1]
+    filePath := os.Args[2]
 
-    if mode == "interpret" {
-        start := time.Now()
+    var compileTime, runTime time.Duration
+
+    start := time.Now()
+
+    switch mode {
+    case "interpret":
+        interpretStart := time.Now()
         Interpret(filePath)
-        elapsed := time.Since(start)
-        fmt.Printf("Mode: %s, Time taken: %s\n", mode, elapsed)
+        runTime = time.Since(interpretStart)
+    case "compile-to-go":
+        outputPath := os.Args[3]
+        compileStart := time.Now()
+        if err := InterpreterToGo(filePath, outputPath); err != nil {
+            fmt.Println("Error:", err)
+            return
+        }
+        compileTime = time.Since(compileStart)
+
+        runStart := time.Now()
+        if err := RunCompiledGo(outputPath); err != nil {
+            fmt.Println("Error:", err)
+            return
+        }
+        runTime = time.Since(runStart)
+    default:
+        fmt.Println("Invalid mode. Use 'interpret' or 'compile-to-go'.")
+        return
     }
+
+    elapsed := time.Since(start)
+    total := compileTime + runTime
+    fmt.Printf("Mode: %s, Compile Time: %s, Run Time: %s, Total Time: %s, Elapsed Time: %s\n", mode, compileTime, runTime, total, elapsed)
 }
 
 func must(err error){
