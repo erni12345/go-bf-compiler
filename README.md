@@ -50,7 +50,7 @@ Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mod
 
 `interpret` <mode> Does not take an output
 
-`compile-to-go` <mode> Takes in the name of the ouput file example : `output.go` it will create the file and it can be run using go run output.go
+`compile-to-go` <mode> Takes in the name of the ouput file example : `output.go` it will create the file and it can be run using `go run output.go`
 
 
 That's it! You've successfully compiled a Brainfuck program using this compiler.
