@@ -32,7 +32,7 @@ func Interpret(path string) {
             default:
         }
 
-        fmt.Println(tape.pointer, tape.cells[tape.pointer], string(current))
+        //fmt.Println(tape.pointer, tape.cells[tape.pointer], string(current))
         //fmt.Println("before", string(reader.CurrentInstruction()))
         reader.NextInstruction()
         //if(reader.size > reader.pointer){
@@ -48,11 +48,11 @@ func startOfLoop(s *Stack, tape *Tape, reader *Reader){
 
     if value == 0{
         endPointer := reader.EndOfLoopIndex()
-        fmt.Println("end of pointer", endPointer, string(reader.content[endPointer]))
+        //fmt.Println("end of pointer", endPointer, string(reader.content[endPointer]))
         reader.JumpTo(endPointer)
         return
     }
-
+    //fmt.Println("made a loop")
     s.Push(reader.pointer)
 }
 
@@ -61,11 +61,15 @@ func endOfLoop(s *Stack, tape *Tape, reader *Reader){
 
     if value != 0 {
         //we need to jump to the beginning again
-        startPointer, _ := s.Pop()
-        fmt.Println("start pointer", startPointer, string(reader.content[startPointer]))
-        reader.JumpTo(startPointer)
-        return
+        startPointer, success := s.Peek()
+        if(success){
+            //fmt.Println("start pointer", startPointer, string(reader.content[startPointer]))
+            reader.JumpTo(startPointer)
+            return
+        } else {
+            fmt.Println("tried to access empty stack")
+        }
     }
-
+    s.Pop()
     //if equal to 0 then we dont do anything
 }
