@@ -2,6 +2,7 @@ package main
 
 import (
     "os"
+    //"fmt"
 )
 
 type Reader struct {
@@ -53,11 +54,33 @@ func (r *Reader) JumpTo(n int) {
 //This function returns the location of the next ']' to be used with the looping logic
 //TODO : maybe add a check if the current pos is a '['
 func (r *Reader) EndOfLoopIndex() int {
-    p := r.pointer
-    for r.content[p] != ']'{
-        p++
+    stack := NewStack()
+
+    for i := r.pointer; i < r.size; i++ {
+        if r.content[i] == '[' {
+            stack.Push(i)
+        } else if r.content[i] == ']' {
+            // If stack is empty, then this ']' has no matching '['
+            if stack.IsEmpty() {
+                return -1
+            }
+            // Pop the top index from stack
+            stack.Pop()
+
+            // If this is the corresponding ']' for the outermost '[', return its index
+            if stack.IsEmpty() {
+                return i
+            }
+        }
     }
-    return p
+    // If the stack is not empty, then there are unmatched '['
+    if !stack.IsEmpty() {
+        return -1
+    }
+
+    // No closing ']' found
+    return -1
 }
+
 
 

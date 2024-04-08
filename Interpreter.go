@@ -12,6 +12,7 @@ func Interpret(path string) {
 
     for reader.size > reader.pointer{ //while the pointer isnt at the end (or error thrown)
         current := reader.CurrentInstruction()
+        //fmt.Println(string(current))
         switch current {
             case '+':
                 tape.Increment()
@@ -49,8 +50,12 @@ func startOfLoop(s *Stack, tape *Tape, reader *Reader){
     if value == 0{
         endPointer := reader.EndOfLoopIndex()
         //fmt.Println("end of pointer", endPointer, string(reader.content[endPointer]))
-        reader.JumpTo(endPointer)
-        return
+        if(endPointer != -1){
+            reader.JumpTo(endPointer)
+            return
+        }else{
+            fmt.Println("no closing bracket")
+        }
     }
     //fmt.Println("made a loop")
     s.Push(reader.pointer)
