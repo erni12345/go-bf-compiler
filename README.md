@@ -48,9 +48,9 @@ Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mod
 
 #They all will compile (if applicable) and run the code, and print some analytics.
 
-'interpret' Does not take an output
+`interpret` <mode> Does not take an output
 
-'compile-to-go' Takes in the name of the ouput file example : `output.go` it will create the file and it can be run using go run output.go
+`compile-to-go` <mode> Takes in the name of the ouput file example : `output.go` it will create the file and it can be run using go run output.go
 
 
 That's it! You've successfully compiled a Brainfuck program using this compiler.
