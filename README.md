@@ -36,7 +36,7 @@ cd go-bf-compiler
 go build
 ```
 
-This will generate an executable file named `brainfuck-compiler` or `brainfuck-compiler.exe` depending on your operating system.
+This will generate an executable file named `bf-compiler` or `bf-compiler.exe` depending on your operating system.
 
 4. Now, you can use the generated executable to compile Brainfuck programs. Run the following command:
 ```
