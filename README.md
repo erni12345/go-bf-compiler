@@ -40,10 +40,10 @@ This will generate an executable file named `brainfuck-compiler` or `brainfuck-c
 
 4. Now, you can use the generated executable to compile Brainfuck programs. Run the following command:
 ```
-./brainfuck-compiler <name-of-file.bf>
+./brainfuck-compiler <name-of-file.bf> <mode>
 ```
-
-Replace `<name-of-file.bf>` with the filename of your Brainfuck program. This will compile the Brainfuck program into executable code.
+Current modes : `interpret`
+Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mode with the mode. **Soon** this will compile the Brainfuck program into executable code. For now just runs.
 
 That's it! You've successfully compiled a Brainfuck program using this compiler.
 
