@@ -43,7 +43,8 @@ func (t *Tape) MoveLeft(){
 
 //.
 func (t *Tape) OutputPointer(){
-    fmt.Println(string(t.cells[t.pointer]));
+    s := string(t.cells[t.pointer])
+    fmt.Print(s);
 }
 
 //,
@@ -53,5 +54,8 @@ func (t *Tape) InputToPointer(){
     t.cells[t.pointer] = input
 }
 
+func (t *Tape) GetCurrentValue() byte{
+    return t.cells[t.pointer];
+}
 
 
