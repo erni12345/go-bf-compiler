@@ -16,9 +16,16 @@ func InterpreterToGo(inputFile string, outputFileName string) error {
         return fmt.Errorf("error reading input file: %v", err)
     }
 
+   if _, err := os.Stat("bin"); os.IsNotExist(err) {
+    	err := os.Mkdir("bin", 0755)
+    	if err != nil {
+    		return fmt.Errorf("error creating bin folder: %v", err)
+    	}
+    }
+
     outputFile, err := os.Create("bin/" + outputFileName)
     if err != nil {
-        return fmt.Errorf("error creating output file: %v", err)
+    	return fmt.Errorf("error creating output file: %v", err)
     }
     defer outputFile.Close()
 
