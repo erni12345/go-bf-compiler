@@ -55,7 +55,8 @@ Replace `<name-of-file.bf>` with the filename of your Brainfuck program, and mod
 RUN
 ```
 ./bf-compiler -h
-``` for help with the commands
+```
+for help with the commands
 
 That's it! You've successfully compiled a Brainfuck program using this compiler.
 
