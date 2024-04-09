@@ -5,41 +5,43 @@ import(
     "fmt"
     "os"
     "time"
+    "flag"
 )
 
 func main() {
-    if len(os.Args) < 4 {
-        fmt.Println("Usage: go run compiler.go <mode> <input_file> <output_file>")
-        return
-    }
 
-    mode := os.Args[1]
-    filePath := os.Args[2]
+
+
+    mode := flag.String("mode", "interpret", "the mode for compilation/interpretation (optional)")
+    filePath := flag.String("inputPath", "examples/hanoi.bf", "the path to the BF file (not optional)")
+    outputPath := flag.String("outputPath", "output.go", "The output path if compiled (optional)")
+    flag.Parse()
 
     var compileTime, runTime time.Duration
 
+
+
     start := time.Now()
 
-    switch mode {
+    switch *mode {
     case "interpret":
         interpretStart := time.Now()
-        Interpret(filePath)
+        Interpret(*filePath)
         runTime = time.Since(interpretStart)
     case "interpret-opti":
         interpretStart := time.Now()
-        InterpreterOpti(filePath)
+        InterpreterOpti(*filePath)
         runTime = time.Since(interpretStart)
     case "compile-to-go":
-        outputPath := os.Args[3]
         compileStart := time.Now()
-        if err := InterpreterToGo(filePath, outputPath); err != nil {
+        if err := InterpreterToGo(*filePath, *outputPath); err != nil {
             fmt.Println("Error:", err)
             return
         }
         compileTime = time.Since(compileStart)
 
         runStart := time.Now()
-        if err := RunCompiledGo(outputPath); err != nil {
+        if err := RunCompiledGo(*outputPath); err != nil {
             fmt.Println("Error:", err)
             return
         }
@@ -51,7 +53,7 @@ func main() {
 
     elapsed := time.Since(start)
     total := compileTime + runTime
-    fmt.Printf("Mode: %s, Compile Time: %s, Run Time: %s, Total Time: %s, Elapsed Time: %s\n", mode, compileTime, runTime, total, elapsed)
+    fmt.Printf("Mode: %s, Compile Time: %s, Run Time: %s, Total Time: %s, Elapsed Time: %s\n", *mode, compileTime, runTime, total, elapsed)
 }
 
 func must(err error){
