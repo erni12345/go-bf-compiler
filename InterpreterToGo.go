@@ -16,13 +16,12 @@ func InterpreterToGo(inputFile string, outputFileName string) error {
         return fmt.Errorf("error reading input file: %v", err)
     }
 
-    outputFile, err := os.Create(outputFileName)
+    outputFile, err := os.Create("bin/" + outputFileName)
     if err != nil {
         return fmt.Errorf("error creating output file: %v", err)
     }
     defer outputFile.Close()
 
-    // Write the package and main function declaration
     outputFile.WriteString("package main\n\n")
     outputFile.WriteString("import (\n")
     outputFile.WriteString("\"fmt\"\n")
@@ -31,7 +30,6 @@ func InterpreterToGo(inputFile string, outputFileName string) error {
     outputFile.WriteString("    memory := make([]byte, 30000)\n")
     outputFile.WriteString("    pointer := 0\n\n")
 
-    // Parse Brainfuck code and generate corresponding Go code
     for _, char := range string(input) {
         switch char {
         case '>':
@@ -53,7 +51,6 @@ func InterpreterToGo(inputFile string, outputFileName string) error {
         }
     }
 
-    // Close the main function
     outputFile.WriteString("}\n")
 
     return nil
@@ -61,7 +58,7 @@ func InterpreterToGo(inputFile string, outputFileName string) error {
 
 
 func RunCompiledGo(goFile string) error {
-    cmd := exec.Command("go", "run", goFile)
+    cmd := exec.Command("go", "run", "bin/" + goFile)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
     if err := cmd.Run(); err != nil {

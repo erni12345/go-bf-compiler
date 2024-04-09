@@ -39,6 +39,23 @@ func (t *Tape) Decrement() {
     }
 }
 
+//+/- optimized, idea is we agregate the + and -
+func (t *Tape) IncrDecrOpti(r *Reader) {
+    counter := 0
+    for (r.CurrentInstruction() == '+' || r.CurrentInstruction() == '-') {
+        value := r.CurrentInstruction()
+        switch value {
+            case '+':
+                counter++
+            case '-':
+                counter--
+        }
+        r.NextInstruction()
+    }
+    t.cells[t.pointer] += byte(counter)
+    r.pointer--
+}
+
 // >
 func (t *Tape) MoveRight(){
     if(t.tapeSize == t.pointer-1){
@@ -59,7 +76,25 @@ func (t *Tape) MoveLeft(){
     }
 }
 
-//.
+func (t *Tape) MoveRLOpti(r *Reader){
+    counter := 0
+    for (r.CurrentInstruction() == '>' || r.CurrentInstruction() == '<'){
+        value := r.CurrentInstruction()
+        switch value{
+            case '>':
+                counter++
+            case '<':
+                counter--
+        }
+        r.NextInstruction()
+    }
+    t.pointer += counter
+    r.pointer--
+
+}
+
+
+//. TODO : OPTIMIZE by using a buffer, only print at the end or whenever an input is requested
 func (t *Tape) OutputPointer(){
     s := string(t.cells[t.pointer])
     fmt.Print(s);

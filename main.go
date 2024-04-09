@@ -25,6 +25,10 @@ func main() {
         interpretStart := time.Now()
         Interpret(filePath)
         runTime = time.Since(interpretStart)
+    case "interpret-opti":
+        interpretStart := time.Now()
+        InterpreterOpti(filePath)
+        runTime = time.Since(interpretStart)
     case "compile-to-go":
         outputPath := os.Args[3]
         compileStart := time.Now()
