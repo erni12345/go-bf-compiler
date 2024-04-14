@@ -1,7 +1,9 @@
-package main
 
-import "fmt"
+	package main
 
-func main() {
-	fmt.Print("Ernesto le Bebecadum")
-}
+	import "fmt"
+
+	func main() {
+		fmt.Print("Ernesto le Bebecadum")
+	}
+	

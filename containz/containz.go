@@ -11,16 +11,16 @@ import (
 
 // returns the output logs
 func Run(code string) (string, error) {
-	// if err := os.WriteFile("./docker/main.go", []byte(code), 0644); err != nil {
-	// 	return "", err
-	// }
-
 	cwd, err := os.Getwd()
 	if err != nil {
 		return "", err
 	}
+
 	fp := filepath.Join(cwd, "docker")
 	err = os.Chdir(fp)
+	if err := os.WriteFile("main.go", []byte(code), 0644); err != nil {
+		return "", err
+	}
 
 	t := fmt.Sprint(time.Now().Unix())
 
