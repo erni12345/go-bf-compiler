@@ -1,4 +1,4 @@
-package main
+package containz
 
 import (
 	"fmt"
@@ -8,14 +8,6 @@ import (
 	"path/filepath"
 	"time"
 )
-
-func main() {
-	res, err := Run("example")
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(res)
-}
 
 // returns the output logs
 func Run(code string) (string, error) {
